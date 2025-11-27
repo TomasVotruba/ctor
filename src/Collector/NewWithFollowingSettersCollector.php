@@ -33,20 +33,30 @@ use PHPStan\Reflection\ReflectionProvider;
  * Goal is to find objects, that are created with same set of setters,
  * then pass values via constructor instead.
  */
-final readonly class NewWithFollowingSettersCollector implements Collector
+final class NewWithFollowingSettersCollector implements Collector
 {
-    public const string SETTER_NAMES = 'setterNames';
+    /**
+     * @readonly
+     */
+    private ReflectionProvider $reflectionProvider;
+    /**
+     * @var string
+     */
+    public const SETTER_NAMES = 'setterNames';
 
-    private const string VARIABLE_NAME = 'variableName';
+    /**
+     * @var string
+     */
+    private const VARIABLE_NAME = 'variableName';
 
     /**
      * @var string[]
      */
-    private const array EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
+    private const EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
 
-    public function __construct(
-        private ReflectionProvider $reflectionProvider
-    ) {
+    public function __construct(ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
     }
 
     public function getNodeType(): string
@@ -102,7 +112,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
                             $setterMethodName = $methodCall->name->toString();
 
                             // probably not a setter
-                            if (str_starts_with($setterMethodName, 'get')) {
+                            if (strncmp($setterMethodName, 'get', strlen('get')) === 0) {
                                 continue;
                             }
 
@@ -143,13 +153,13 @@ final readonly class NewWithFollowingSettersCollector implements Collector
         }
 
         // skip vendor classes
-        if (str_contains($classReflection->getFileName(), 'vendor')) {
+        if (strpos($classReflection->getFileName(), 'vendor') !== false) {
             return true;
         }
 
         // skip Doctrine entities
         $fileContents = file_get_contents($classReflection->getFileName());
-        return str_contains($fileContents, '@ORM\Entity') || str_starts_with($fileContents, '#[Entity]');
+        return strpos($fileContents, '@ORM\Entity') !== false || strncmp($fileContents, '#[Entity]', strlen('#[Entity]')) === 0;
     }
 
     private function isTestCase(Scope $scope): bool
@@ -159,7 +169,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
         }
 
         $classReflection = $scope->getClassReflection();
-        return str_ends_with($classReflection->getName(), 'Test');
+        return substr_compare($classReflection->getName(), 'Test', -strlen('Test')) === 0;
     }
 
     /**
