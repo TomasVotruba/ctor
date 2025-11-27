@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TomasVotruba\Ctor\Tests\Rules\NewOverSettersRule;
 
+use Override;
 use Iterator;
 use PHPStan\Collectors\Collector;
 use PHPStan\Rules\Rule;
@@ -50,6 +51,7 @@ final class NewOverSettersRuleTest extends RuleTestCase
     /**
      * @return string[]
      */
+    #[Override]
     public static function getAdditionalConfigFiles(): array
     {
         return [__DIR__ . '/../../../config/extension.neon'];
@@ -63,6 +65,7 @@ final class NewOverSettersRuleTest extends RuleTestCase
     /**
      * @return Collector[]
      */
+    #[Override]
     protected function getCollectors(): array
     {
         return [self::getContainer()->getByType(NewWithFollowingSettersCollector::class)];

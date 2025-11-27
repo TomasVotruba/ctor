@@ -35,20 +35,14 @@ use PHPStan\Reflection\ReflectionProvider;
  */
 final readonly class NewWithFollowingSettersCollector implements Collector
 {
-    /**
-     * @var string
-     */
-    public const SETTER_NAMES = 'setterNames';
+    public const string SETTER_NAMES = 'setterNames';
 
-    /**
-     * @var string
-     */
-    private const VARIABLE_NAME = 'variableName';
+    private const string VARIABLE_NAME = 'variableName';
 
     /**
      * @var string[]
      */
-    private const EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
+    private const array EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
 
     public function __construct(
         private ReflectionProvider $reflectionProvider

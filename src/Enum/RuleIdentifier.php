@@ -6,8 +6,5 @@ namespace TomasVotruba\Ctor\Enum;
 
 final class RuleIdentifier
 {
-    /**
-     * @var string
-     */
-    public const NEW_OVER_SETTERS = 'tv.newOverSetters';
+    public const string NEW_OVER_SETTERS = 'tv.newOverSetters';
 }
