@@ -25,6 +25,7 @@ use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Reflection\ReflectionProvider;
+use Webmozart\Assert\Assert;
 
 /**
  * Collect instance of `new`,
@@ -149,6 +150,8 @@ final readonly class NewWithFollowingSettersCollector implements Collector
 
         // skip Doctrine entities
         $fileContents = file_get_contents($classReflection->getFileName());
+        Assert::string($fileContents);
+
         return str_contains($fileContents, '@ORM\Entity') || str_starts_with($fileContents, '#[Entity]');
     }
 
@@ -192,6 +195,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
 
         $variableName = $assignedVariable->name;
 
+        /** @var class-string $className */
         $className = $new->class->toString();
         if ($this->shouldSkipClass($className)) {
             return null;
