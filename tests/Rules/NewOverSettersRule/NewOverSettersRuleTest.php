@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace TomasVotruba\Ctor\Tests\Rules\NewOverSettersRule;
 
-use Override;
 use Iterator;
+use Override;
 use PHPStan\Collectors\Collector;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
