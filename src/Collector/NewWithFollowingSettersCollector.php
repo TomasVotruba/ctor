@@ -57,11 +57,6 @@ final readonly class NewWithFollowingSettersCollector implements Collector
 
     public function processNode(Node $node, Scope $scope)
     {
-        // skip tests, as they might use manual service construction, we're not interested in
-        if ($this->isTestCase($scope)) {
-            return null;
-        }
-
         // basically all nodes that have ->stmts inside
         if (! $node instanceof ClassMethod && ! $node instanceof Function_ && ! $node instanceof If_ && ! $node instanceof ElseIf_ && ! $node instanceof While_ && ! $node instanceof Foreach_ && ! $node instanceof For_) {
             return null;
@@ -153,16 +148,6 @@ final readonly class NewWithFollowingSettersCollector implements Collector
         Assert::string($fileContents);
 
         return str_contains($fileContents, '@ORM\Entity') || str_starts_with($fileContents, '#[Entity]');
-    }
-
-    private function isTestCase(Scope $scope): bool
-    {
-        if (! $scope->isInClass()) {
-            return false;
-        }
-
-        $classReflection = $scope->getClassReflection();
-        return str_ends_with($classReflection->getName(), 'Test');
     }
 
     /**
