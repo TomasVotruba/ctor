@@ -97,8 +97,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
                             // record the method call here
                             $setterMethodName = $methodCall->name->toString();
 
-                            // probably not a setter
-                            if (str_starts_with($setterMethodName, 'get')) {
+                            if (! $this->isSetterName($setterMethodName)) {
                                 continue;
                             }
 
@@ -204,5 +203,14 @@ final readonly class NewWithFollowingSettersCollector implements Collector
 
             return $node instanceof Throw_;
         });
+    }
+
+    private function isSetterName(string $setterMethodName): bool
+    {
+        if (str_starts_with($setterMethodName, 'add')) {
+            return true;
+        }
+
+        return str_starts_with($setterMethodName, 'set');
     }
 }
