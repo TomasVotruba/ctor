@@ -4,32 +4,14 @@
     "description": "Prefer constructor over always called setters",
     "license": "MIT",
     "require": {
-        "php": "^8.3",
-        "phpstan/phpstan": "^2.1.32",
-        "webmozart/assert": "^1.12"
-    },
-    "require-dev": {
-        "nikic/php-parser": "^5.6",
-        "symplify/phpstan-extensions": "^12.0",
-        "phpunit/phpunit": "^12.4",
-        "rector/rector": "^2.2",
-        "phpecs/phpecs": "^2.2",
-        "phpstan/extension-installer": "^1.4",
-        "tracy/tracy": "^2.11",
-        "rector/jack": "^0.4.0"
+        "php": "^7.4|^8.0",
+        "phpstan/phpstan": "^2.1.14",
+        "webmozart/assert": "^1.11"
     },
     "autoload": {
         "psr-4": {
             "TomasVotruba\\Ctor\\": "src"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "TomasVotruba\\Ctor\\Tests\\": "tests"
-        },
-        "classmap": [
-            "stubs"
-        ]
     },
     "extra": {
         "phpstan": {
@@ -37,17 +19,5 @@
                 "config/extension.neon"
             ]
         }
-    },
-    "config": {
-        "platform-check": false,
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
-    },
-    "scripts": {
-        "check-cs": "vendor/bin/ecs check --ansi",
-        "fix-cs": "vendor/bin/ecs check --fix --ansi",
-        "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
-        "rector": "vendor/bin/rector process --dry-run --ansi"
     }
 }
