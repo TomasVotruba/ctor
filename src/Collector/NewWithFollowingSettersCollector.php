@@ -34,20 +34,30 @@ use Webmozart\Assert\Assert;
  * Goal is to find objects, that are created with same set of setters,
  * then pass values via constructor instead.
  */
-final readonly class NewWithFollowingSettersCollector implements Collector
+final class NewWithFollowingSettersCollector implements Collector
 {
-    public const string SETTER_NAMES = 'setterNames';
+    /**
+     * @readonly
+     */
+    private ReflectionProvider $reflectionProvider;
+    /**
+     * @var string
+     */
+    public const SETTER_NAMES = 'setterNames';
 
-    private const string VARIABLE_NAME = 'variableName';
+    /**
+     * @var string
+     */
+    private const VARIABLE_NAME = 'variableName';
 
     /**
      * @var string[]
      */
-    private const array EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
+    private const EXCLUDED_CLASSES = ['Symfony\Component\HttpKernel\Kernel'];
 
-    public function __construct(
-        private ReflectionProvider $reflectionProvider
-    ) {
+    public function __construct(ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
     }
 
     public function getNodeType(): string
@@ -138,7 +148,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
         }
 
         // skip vendor classes
-        if (str_contains($classReflection->getFileName(), 'vendor')) {
+        if (strpos($classReflection->getFileName(), 'vendor') !== false) {
             return true;
         }
 
@@ -146,7 +156,7 @@ final readonly class NewWithFollowingSettersCollector implements Collector
         $fileContents = file_get_contents($classReflection->getFileName());
         Assert::string($fileContents);
 
-        return str_contains($fileContents, '@ORM\Entity') || str_starts_with($fileContents, '#[Entity]');
+        return strpos($fileContents, '@ORM\Entity') !== false || strncmp($fileContents, '#[Entity]', strlen('#[Entity]')) === 0;
     }
 
     /**
@@ -207,10 +217,10 @@ final readonly class NewWithFollowingSettersCollector implements Collector
 
     private function isSetterName(string $setterMethodName): bool
     {
-        if (str_starts_with($setterMethodName, 'add')) {
+        if (strncmp($setterMethodName, 'add', strlen('add')) === 0) {
             return true;
         }
 
-        return str_starts_with($setterMethodName, 'set');
+        return strncmp($setterMethodName, 'set', strlen('set')) === 0;
     }
 }
