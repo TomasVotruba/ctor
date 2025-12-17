@@ -22,7 +22,7 @@ use TomasVotruba\Ctor\Enum\RuleIdentifier;
  */
 final readonly class NewOverSettersRule implements Rule
 {
-    public const string ERROR_MESSAGE = 'Class "%s" is always created with same %d setters: "%s()"%sPass these values via constructor instead';
+    public const string ERROR_MESSAGE = 'Class "%s" is always created with same %d setter(s): "%s()"%sPass these values via constructor instead';
 
     public function __construct(
         private ReflectionProvider $reflectionProvider
