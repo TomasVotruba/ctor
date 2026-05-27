@@ -2,7 +2,6 @@
 
 [![Downloads](https://img.shields.io/packagist/dt/tomasvotruba/ctor.svg?style=flat-square)](https://packagist.org/packages/tomasvotruba/ctor/stats)
 [![Code Analysis](https://img.shields.io/github/actions/workflow/status/TomasVotruba/ctor/code_analysis.yaml?branch=main&style=flat-square&label=code%20analysis)](https://github.com/TomasVotruba/ctor/actions/workflows/code_analysis.yaml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 If you can use constructor instead of setters, use it. These PHPStan rules will help you to find such cases.
 
