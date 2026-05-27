@@ -37,8 +37,8 @@ Such chained setters often indicate implicit required dependencies. By moving th
 
 ## Requirements
 
-- PHP `^8.3`
-- PHPStan `^2.1.32`
+- PHP `7.2`+
+- PHPStan `^2.1`
 
 <br>
 
@@ -91,10 +91,5 @@ It deliberately **skips**:
 
 <br>
 
-## License
-
-MIT — see [LICENSE](LICENSE).
-
-<br>
 
 Happy coding!
