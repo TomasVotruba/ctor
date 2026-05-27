@@ -6,17 +6,17 @@
     "require": {
         "php": "^8.3",
         "phpstan/phpstan": "^2.1.32",
-        "webmozart/assert": "^1.12"
+        "webmozart/assert": "^2.4"
     },
     "require-dev": {
         "nikic/php-parser": "^5.7",
         "symplify/phpstan-extensions": "^12.0",
         "phpunit/phpunit": "^12.5",
-        "rector/rector": "^2.2",
-        "phpecs/phpecs": "^2.2",
+        "rector/rector": "^2.4",
+        "phpecs/phpecs": "^2.3",
         "phpstan/extension-installer": "^1.4",
-        "tracy/tracy": "^2.11",
-        "rector/jack": "^0.4.0"
+        "tracy/tracy": "^2.12",
+        "rector/jack": "^1.0"
     },
     "autoload": {
         "psr-4": {
