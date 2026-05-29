@@ -101,6 +101,11 @@ final readonly class NewWithFollowingSettersCollector implements Collector
                                 continue;
                             }
 
+                            // skip no-arg setters, the value cannot be moved to the constructor
+                            if ($methodCall->getArgs() === []) {
+                                continue;
+                            }
+
                             $newInstancesMetadata[$key][self::SETTER_NAMES][] = $setterMethodName;
                         }
                     }
