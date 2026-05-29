@@ -36,7 +36,7 @@ Such chained setters often indicate implicit required dependencies. By moving th
 
 ## Requirements
 
-- PHP `7.2`+
+- PHP `^8.3`
 - PHPStan `^2.1`
 
 <br>
